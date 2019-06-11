@@ -1,12 +1,10 @@
 from flask import Flask, request, jsonify, render_template
 #from flask.ext.jsonpify import jsonify
-from flask_cors import CORS
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
 import pprint
 app = Flask(__name__)
-CORS(app)
 driver = None
 
 
