@@ -13,7 +13,7 @@ driver = None
 def saf_marine_crawler(code):
 	options = Options()
 	options.headless = True
-	driver=webdriver.Firefox(options=options,executable_path='/home/stark/projects/global_cargo/server/geckodriver')
+	driver=webdriver.Firefox(options=options)
 	data={"summary":None,"details":[]}
 	details=[]#[[title,[time,detail],...]
 	url="https://www.safmarine.com/how-to-ship/tracking?trackingNumber="
