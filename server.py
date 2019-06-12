@@ -17,6 +17,10 @@ def saf_marine_crawler(code):
 	url="https://www.safmarine.com/how-to-ship/tracking?trackingNumber="
 	driver.get(url+code)
 	print driver.title
+	try:
+		driver.find_element_by_css_selector("#ign-accept-cookie").click()
+	except:
+		pass
 	summary=driver.find_elements_by_css_selector("tr.bg--saf-orange td")[3].text
 	#show details
 	driver.find_element_by_css_selector("a span.tracking__results__table__row__more-details__link__span").click()
