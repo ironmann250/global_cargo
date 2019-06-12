@@ -69,7 +69,7 @@ def index():
               ['11 May 2019 14:31', 'Discharge']]],
  'summary': 'Discharge, 23 days ago at Douala, CM'}
  	try:
- 		data=saf_marine_crawler("msku1329613")
+ 		data=saf_marine_crawler(code)
  		mid=createpage(data)
  		summary=data['summary']
  	except:
