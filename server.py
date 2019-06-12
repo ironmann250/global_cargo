@@ -72,7 +72,8 @@ def index():
  		data=saf_marine_crawler(code)
  		mid=createpage(data)
  		summary=data['summary']
- 	except:
+ 	except Exception as e:
+ 		print e
  		mid="<h4>Cargo Container Not Found</h4>"
 	return render_template("search.html",**locals())
 
