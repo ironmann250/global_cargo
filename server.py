@@ -73,15 +73,26 @@ def index():
               ['11 May 2019 14:31', 'Discharge']]],
  'summary': 'Discharge, 23 days ago at Douala, CM'}
  	try:
- 		data=saf_marine_crawler(code)
+ 		#data=saf_marine_crawler(code)
  		mid=createpage(data)
  		summary=data['summary']
  	except Exception as e:
  		print e
  		mid="<h4>Cargo Container Not Found</h4>"
-	return render_template("search.html",**locals())
+	return jsonify(data) #render_template("search.html",**locals())
 
+@app.route('/get_slides')
+def send_slides():
+	slides=['/static/img/mountains.jpg','/static/img/monkey.jpg','/static/img/front.jpg']
+	return jsonify(slides)
 
+@app.route('/get_news')
+def send_news():
+	news=[['new port open in cameroun',"the new port in cameroun can support many ships and can load and unload at the same time, it really is a change to the country's economy"],
+	['a discount for big shipments',"all large shipments (greater than 50KG) will have a 10% discount"]
+	]
+	
+	return jsonify(news)
 
 
 
