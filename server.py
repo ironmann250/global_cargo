@@ -16,7 +16,7 @@ def saf_marine_crawler(code):
 	details=[]#[[title,[time,detail],...]
 	url="https://www.safmarine.com/how-to-ship/tracking?trackingNumber="
 	driver.get(url+code)
-	print driver.title
+	print(driver.title)
 	try:
 		driver.find_element_by_css_selector("#ign-accept-cookie").click()
 	except:
@@ -59,41 +59,66 @@ def createpage(data):
 @app.route('/search')
 def index():
 	code=request.args.get("code")
-	data={'details': [['Unknown location,',
-              ['25 Mar 2019 15:25', 'Gate out, empty']],
-             ['GZ Oceangate Container Terminal, Nansha New Port, Guangdong, China',
-              ['26 Mar 2019 05:16', 'Gate in'],
-              ['01 Apr 2019 04:29',
-               'Load on MAERSK SEOUL Voyage No.: 911W']],
-             ['Pointe Noire Terminal /Terminal/Con, Pointe Noire, Congo',
-              ['03 May 2019 10:38', 'Discharge'],
-              ['06 May 2019 14:02',
-               'Load on CMA CGM PLATON Voyage No.: 1915']],
-             ['Douala Terminal, Douala, Cameroon',
-              ['11 May 2019 14:31', 'Discharge']]],
- 'summary': 'Discharge, 23 days ago at Douala, CM'}
- 	try:
- 		#data=saf_marine_crawler(code)
- 		mid=createpage(data)
- 		summary=data['summary']
- 	except Exception as e:
- 		print e
- 		mid="<h4>Cargo Container Not Found</h4>"
-	return jsonify(data) #render_template("search.html",**locals())
+
+
+	data={"summary":"Discharge, 23 days ago at Douala, CM",
+   "details":[
+      {
+         "port":"cameroun",
+         "transactions":[
+            {
+               "date":"25 Mar 2019 15:25",
+               "action":"discharge of container"
+            },
+            {
+               "date":"25 Mar 2019 17:25",
+               "action":"gate in"
+            }
+         ]
+      },
+      {
+         "port":"Pointe Noire Terminal /Terminal/Con, Pointe Noire",
+         "transactions":[
+            {
+               "date":"28 Mar 2019 15:25",
+               "action":"transportation"
+            },
+            {
+               "date":"29 Mar 2019 17:25",
+               "action":"Load on CMA CGM PLATON Voyage No.: 1915"
+            }
+         ]
+      }
+   ]
+}
+
+	try:
+		mid=createpage(data)
+		summary=data['summary']
+	except Exception:
+		print(Exception)
+		mid="<h4>Cargo Container Not Found</h4>"
+		return jsonify(data) #render_template("search.html",**locals())
 
 @app.route('/get_slides')
 def send_slides():
-	slides=['/static/img/mountains.jpg','/static/img/monkey.jpg','/static/img/front.jpg']
+	slides=['/static/img/mountains.jpg','/static/img/monkey.jpg','/static/img/front.jpg']  #data=saf_marine_crawler(code)
 	return jsonify(slides)
 
 @app.route('/get_news')
 def send_news():
-	news=[['new port open in cameroun',"the new port in cameroun can support many ships and can load and unload at the same time, it really is a change to the country's economy"],
-	['a discount for big shipments',"all large shipments (greater than 50KG) will have a 10% discount"]
-	]
+	news=[
+{
+	"title":"new port open in cameroun",
+	"description":"the new port in cameroun can support many ships and can load and unload at the same time, it really is a change to the country's economy"	
+},
+{
+	"title":"a discount for big shipments",
+	"description":"all large shipments (greater than 50KG) will have a 10% discount"
+}
+]
 	
 	return jsonify(news)
-
 
 
 
