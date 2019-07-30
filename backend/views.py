@@ -5,6 +5,7 @@ from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 import requests,json
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 # Create your views here.
 def postprocess(request,fields,exc=['',None]):
@@ -65,7 +66,7 @@ def processcode(code='msku0377509',operator='maeu'):
 		ports.append(p)  
 	data['details']=ports
 	return data
-
+@xframe_options_exempt
 def search(request):
 	code=getprocess(request,['code'])[0]
 	data=[]
