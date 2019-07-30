@@ -57,8 +57,11 @@ def processcode(code='msku0377509',operator='maeu'):
 	for i in jdata['containers'][0]['locations']:
 		p=[]                                                                                      
 		p.append(','.join([i['country'],i['city'],i['terminal']]))                                                                   
-		for e in i['events']:                                                                     
-			p.append([' on '.join(e['expected_time'].split('T')),e['activity']+" "+e['vessel_name']])                        
+		for e in i['events']:
+			try:                                                                     
+				p.append([' on '.join(e['actual_time'].split('T')),e['activity']+" "+e['vessel_name']])
+			except:
+				p.append([' on '.join(e['expected_time'].split('T')),e['activity']+" "+e['vessel_name']])
 		ports.append(p)  
 	data['details']=ports
 	return data
@@ -82,15 +85,16 @@ def search(request):
 		if SEARCH.objects.filter(code=code).count()==0:
 			new_data=SEARCH(code=code,data=json.dumps(data))
 			new_data.save()
-	except:
-		pass
-	try:
-		data=processcode(code,'safm')
-		if SEARCH.objects.filter(code=code).count()==0:
-			new_data=SEARCH(code=code,data=json.dumps(data))
-			new_data.save()
-	except:
-		pass
+	except Exception as e:
+		print e
+		try:
+			data=processcode(code,'safm')
+			if SEARCH.objects.filter(code=code).count()==0:
+				new_data=SEARCH(code=code,data=json.dumps(data))
+				new_data.save()
+		except Exception as e:
+			print e
+			pass
 
 	if data:
 		mid=createpage(data)
