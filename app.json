@@ -1,0 +1,8 @@
+{
+  "name": "global_union_cargo_search_server",
+  "description": "globa union cargo search backend",
+  "image": "heroku/python",
+  "repository": "https://github.com/ironmann250/global_cargo",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}
