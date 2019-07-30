@@ -25,7 +25,7 @@ SECRET_KEY = 'w@1bmg1b&$42iety3-_+^ajhl)$c72=_0jq+*_%b9pd)_6k9_o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["cargo-tracker86.herokuapp.com","127.0.0.1"]
 
 
 # Application definition
