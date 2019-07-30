@@ -1,1 +1,1 @@
-web: gunicorn fivestarweb.wsgi --log-file -
+web: gunicorn server.wsgi --log-file -
