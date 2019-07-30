@@ -25,6 +25,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^search/', views.search),
 ]
-media_urls=[static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)]
+media_urls=[static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)]
 for url in media_urls:
 	urlpatterns+=url
