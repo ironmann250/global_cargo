@@ -49,10 +49,10 @@ def processcode(code='msku0377509',operator='maeu'):
 	ports=[]
 	url="https://api.maerskline.com/track/"+code+"?operator="+operator
 	jdata=json.loads(requests.get(url).text)
-	summary.append(','.join([jdata['origin']['country'],jdata['origin']['city'],jdata['origin']['terminal']]))
-	summary.append(','.join([jdata['destination']['country'],jdata['destination']['city'],jdata['destination']['terminal']]))
-	summary.append(' on '.join(jdata['containers'][0]['eta_final_delivery'].split('T')))
-	summary.append(jdata['containers'][0]['status'])
+	summary.append('From: '+','.join([jdata['origin']['country'],jdata['origin']['city'],jdata['origin']['terminal']]))
+	summary.append('To: '+','.join([jdata['destination']['country'],jdata['destination']['city'],jdata['destination']['terminal']]))
+	summary.append('Arrival Time: '+' on '.join(jdata['containers'][0]['eta_final_delivery'].split('T')))
+	summary.append('Status: '+jdata['containers'][0]['status'])
 	data['summary']=summary
 	for i in jdata['containers'][0]['locations']:
 		p=[]                                                                                      
@@ -97,5 +97,5 @@ def search(request):
 		summary=data['summary']
 	else:
 		mid="<h4> Cargo Container Not Found </h4>"
-		summary=['Unknown Cargo']
+		summary=['Error: Unknown Cargo']
 	return render(request,'search.html',locals())

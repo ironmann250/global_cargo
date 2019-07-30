@@ -28,7 +28,11 @@
          <li>
             <div class = "collapsible-header">
                <i class = "material-icons">send</i>{{code}}</div>
-            <div class = "collapsible-body"><p>ETA: {{summary}}</p></div>
+            <div class = "collapsible-body">
+            {% for s in summary %}
+            <p>{{s}}</p>
+            {% endfor %}
+          </div>
          </li>
       </ul>
     </section>
