@@ -2,5 +2,5 @@ Django==1.9
 gunicorn==19.6.0
 whitenoise==2.0.6
 south==1.0.2
-pillow==2.5.1
+pillow==9.0.0
 requests==2.9.1
